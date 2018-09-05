@@ -1,0 +1,13 @@
+task webpack(type: Exec) {
+    inputs.file(".babelrc")
+    inputs.file("webpack.common.babel.js")
+    inputs.file("webpack.dev.babel.js")
+    inputs.file("webpack.dev.js")
+    inputs.file("webpack.prod.babel.js")
+    inputs.file("webpack.prod.js")
+    inputs.dir("src")
+
+    outputs.dir("$buildDir")
+
+    commandLine "npm", "run", "dev"
+}
