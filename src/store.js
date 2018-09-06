@@ -22,6 +22,7 @@ export class PaginatedEntityContainer {
 const state = {
     entities: {
         users: new PaginatedEntityContainer(),
+        emails: new PaginatedEntityContainer(),
     },
     ui: {
         ureg: {
@@ -32,6 +33,14 @@ const state = {
                 deleteUser: {
                     open: false,
                     user: {}
+                }
+            }
+        },
+        mailer: {
+            modals: {
+                viewEmail: {
+                    open: false,
+                    email: {}
                 }
             }
         }

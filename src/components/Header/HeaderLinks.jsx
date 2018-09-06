@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { Manager, Reference, Popper } from "react-popper";
+import {Manager, Reference, Popper} from "react-popper";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -21,150 +21,111 @@ import Button from "components/CustomButtons/Button.jsx";
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 
 class HeaderLinks extends React.Component {
-  state = {
-    open: false
-  };
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
-  };
+    state = {
+        open: false
+    };
+    handleClick = () => {
+        this.setState({open: !this.state.open});
+    };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-  render() {
-    const { classes } = this.props;
-    const { open } = this.state;
-    return (
-      <div>
-        <div className={classes.searchWrapper}>
-        <CustomInput
-          formControlProps={{
-            className: classes.margin + " " + classes.search
-          }}
-          inputProps={{
-            placeholder: "Search",
-            inputProps: {
-              "aria-label": "Search"
-            }
-          }}
-        />
-        <Button color="white" aria-label="edit" justIcon round>
-          <Search />
-        </Button>
-      </div>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Dashboard"
-          className={classes.buttonLink}
-        >
-          <Dashboard className={classes.icons} />
-          <Hidden mdUp>
-            <p className={classes.linkText}>Dashboard</p>
-          </Hidden>
-        </Button>
-          <Manager>
-              <Reference>
-                  {({ref}) => (
-                      <Button
-                          ref={ref}
-                          color={window.innerWidth > 959 ? "transparent" : "white"}
-                          justIcon={window.innerWidth > 959}
-                          simple={!(window.innerWidth > 959)}
-                          aria-label="Notifications"
-                          aria-owns={open ? "menu-list" : null}
-                          aria-haspopup="true"
-                          onClick={this.handleClick}
-                          className={classes.buttonLink}
-                      >
-                          <Notifications className={classes.icons} />
-                          <span className={classes.notifications}>5</span>
-                          <Hidden mdUp>
-                              <p onClick={this.handleClick} className={classes.linkText}>
-                                  Notification
-                              </p>
-                          </Hidden>
-                      </Button>
-                  )}
-              </Reference>
-              <Popper
-                  placement="bottom-end"
-                  eventsEnabled={open}
-              >
-                  {({ref, style, placement, outOfBoundaries, scheduleUpdate, arrowProps }) =>(
-                      <div
-                          ref={ref}
-                          className={
-                              classNames({ [classes.popperClose]: !open }, { [classes.popperResponsive]: true })
-                          }
-                          style={{
-                              position: "absolute",
-                              willChange: "transform",
-                          }}
-                          data-placement={placement}
-                      >
-                          <ClickAwayListener onClickAway={this.handleClose}>
-                              <Grow
-                                  in={open}
-                                  id="menu-list"
-                                  style={{ transformOrigin: "0 0 0" }}
-                              >
-                                  <Paper className={classes.dropdown}>
-                                      <MenuList role="menu">
-                                          <MenuItem
-                                              onClick={this.handleClose}
-                                              className={classes.dropdownItem}
-                                          >
-                                              Mike John responded to your email
-                                          </MenuItem>
-                                          <MenuItem
-                                              onClick={this.handleClose}
-                                              className={classes.dropdownItem}
-                                          >
-                                              You have 5 new tasks
-                                          </MenuItem>
-                                          <MenuItem
-                                              onClick={this.handleClose}
-                                              className={classes.dropdownItem}
-                                          >
-                                              You're now friend with Andrew
-                                          </MenuItem>
-                                          <MenuItem
-                                              onClick={this.handleClose}
-                                              className={classes.dropdownItem}
-                                          >
-                                              Another Notification
-                                          </MenuItem>
-                                          <MenuItem
-                                              onClick={this.handleClose}
-                                              className={classes.dropdownItem}
-                                          >
-                                              Another One
-                                          </MenuItem>
-                                      </MenuList>
-                                  </Paper>
-                              </Grow>
-                          </ClickAwayListener>
-                      </div>
-                  )}
-              </Popper>
-          </Manager>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Person"
-          className={classes.buttonLink}
-        >
-          <Person className={classes.icons} />
-          <Hidden mdUp>
-            <p className={classes.linkText}>Profile</p>
-          </Hidden>
-        </Button>
-      </div>
-    );
-  }
+    handleClose = () => {
+        this.setState({open: false});
+    };
+
+    render() {
+        const {classes} = this.props;
+        const {open} = this.state;
+        return (
+            <div>
+                <Manager>
+                    <Reference>
+                        {({ref}) => (
+                            <Button
+                                ref={ref}
+                                color={window.innerWidth > 959 ? "transparent" : "white"}
+                                justIcon={window.innerWidth > 959}
+                                simple={!(window.innerWidth > 959)}
+                                aria-label="Notifications"
+                                aria-owns={open ? "menu-list" : null}
+                                aria-haspopup="true"
+                                onClick={this.handleClick}
+                                className={classes.buttonLink}
+                            >
+                                <Notifications className={classes.icons}/>
+                                <span className={classes.notifications}>5</span>
+                                <Hidden mdUp>
+                                    <p onClick={this.handleClick} className={classes.linkText}>
+                                        Notification
+                                    </p>
+                                </Hidden>
+                            </Button>
+                        )}
+                    </Reference>
+                    <Popper
+                        placement="bottom-end"
+                        eventsEnabled={open}
+                    >
+                        {({ref, style, placement, outOfBoundaries, scheduleUpdate, arrowProps}) => (
+                            <div
+                                ref={ref}
+                                className={
+                                    classNames({[classes.popperClose]: !open}, {[classes.popperResponsive]: true})
+                                }
+                                style={{
+                                    position: "absolute",
+                                    willChange: "transform",
+                                }}
+                                data-placement={placement}
+                            >
+                                <ClickAwayListener onClickAway={this.handleClose}>
+                                    <Grow
+                                        in={open}
+                                        id="menu-list"
+                                        style={{transformOrigin: "0 0 0"}}
+                                    >
+                                        <Paper className={classes.dropdown}>
+                                            <MenuList role="menu">
+                                                <MenuItem
+                                                    onClick={this.handleClose}
+                                                    className={classes.dropdownItem}
+                                                >
+                                                    Mike John responded to your email
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={this.handleClose}
+                                                    className={classes.dropdownItem}
+                                                >
+                                                    You have 5 new tasks
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={this.handleClose}
+                                                    className={classes.dropdownItem}
+                                                >
+                                                    You're now friend with Andrew
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={this.handleClose}
+                                                    className={classes.dropdownItem}
+                                                >
+                                                    Another Notification
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={this.handleClose}
+                                                    className={classes.dropdownItem}
+                                                >
+                                                    Another One
+                                                </MenuItem>
+                                            </MenuList>
+                                        </Paper>
+                                    </Grow>
+                                </ClickAwayListener>
+                            </div>
+                        )}
+                    </Popper>
+                </Manager>
+            </div>
+        );
+    }
 }
 
 export default withStyles(headerLinksStyle)(HeaderLinks);

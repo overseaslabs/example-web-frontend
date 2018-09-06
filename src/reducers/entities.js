@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {INSERT_USERS} from "../actions/ureg/list";
 import {REMOVE_USER, REPLACE_USER, ADD_USER} from "../actions/ureg/list";
+import {INSERT_EMAILS} from "../actions/mailer/list";
 
 const users = (state = {}, action) => {
     switch (action.type) {
@@ -53,14 +54,22 @@ const users = (state = {}, action) => {
             return users;
         }
 
-
         default:
             return state;
     }
 };
 
 const emails = (state = {}, action) => {
-    return state;
+    switch (action.type) {
+        case INSERT_EMAILS:
+            //Replace the users in the state
+            return {
+                ...action.emails,
+            };
+
+        default:
+            return state;
+    }
 };
 
 

@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import {TOGGLE_EDIT_USER_MODAL, TOGGLE_DELETE_USER_MODAL} from "../actions/ureg/modals";
+import {TOGGLE_VIEW_EMAIL_MODAL} from "../actions/mailer/modals";
 
 const editUser = (state = {}, action) => {
     switch (action.type) {
@@ -28,10 +29,25 @@ const deleteUser = (state = {}, action) => {
     }
 };
 
-const modals = combineReducers({editUser, deleteUser});
+const viewEmail = (state = {}, action) => {
+    switch (action.type) {
+        case TOGGLE_VIEW_EMAIL_MODAL:
+            return {
+                ...state,
+                open: action.open,
+                email: action.open === true ? action.email : {}
+            };
 
-const ureg = combineReducers({modals});
+        default:
+            return state;
+    }
+};
 
-const ui = combineReducers({ureg});
+
+const ureg = combineReducers({modals: combineReducers({editUser, deleteUser})});
+
+const mailer = combineReducers({modals: combineReducers({viewEmail})});
+
+const ui = combineReducers({ureg, mailer});
 
 export default ui;
