@@ -97,7 +97,7 @@ class Presentation extends React.Component {
                                             <TableRow key={user.id}>
                                                 <TableCell className={classes.tableCell}>{user.firstName + " " + user.lastName}</TableCell>
                                                 <TableCell className={classes.tableCell}>{user.email}</TableCell>
-                                                <TableCell className={classes.tableCell}>{user.added}</TableCell>
+                                                <TableCell className={classes.tableCell}>{user.created}</TableCell>
                                                 <TableCell className={classes.tableCell}>
                                                     <IconButton className={classes.button} onClick={() => handleEditUser(user)}>
                                                         <EditIcon/>

@@ -1,6 +1,8 @@
 import {replaceUser, removeUser, addUser, insertUsers} from "./list";
 import {PaginatedEntityContainer} from "../../store";
 import CircularJSON from 'circular-json';
+import {addNotification} from "../notifications";
+import ErrorIcon from "@material-ui/icons/Error";
 
 
 export const fetchUsers = (page = 0, rowsPerPage = PaginatedEntityContainer.ROWS_PER_PAGE) => async dispatch => {
@@ -28,22 +30,26 @@ export const createUser = (user, page = 0, rowsPerPage = PaginatedEntityContaine
             headers: {'Content-Type': 'application/json'}
         });
 
-        if (response.status !== 200) {
+        if (response.status === 409) {
+            const text = await response.text();
+            throw new Error(text);
+
+        } else if (response.status !== 200) {
             throw new Error('Something went wrong when creating the user');
+
+        } else {
+            const createdUser = await response.json();
+
+            //by replacing the user in the list we update the temp ID to the real ID
+            dispatch(replaceUser(user, createdUser));
+
+            //reload the list
+            dispatch(fetchUsers(page, rowsPerPage));
         }
-
-        const createdUser = await response.json();
-
-        //by replacing the user in the list we update the temp ID to the real ID
-        dispatch(replaceUser(user, createdUser));
-
-        //reload the list
-        dispatch(fetchUsers(page, rowsPerPage));
-
     } catch (e) {
         //error - rollback the user in the state
         dispatch(removeUser(user));
-        alert(e);
+        dispatch(addNotification(e.toString(), "danger", ErrorIcon));
     }
 };
 
@@ -59,7 +65,11 @@ export const updateUser = (oldUser, newUser) => async (dispatch) => {
             headers: {'Content-Type': 'application/json'}
         });
 
-        if (response.status !== 200) {
+        if (response.status === 409) {
+            const text = await response.text();
+            throw new Error(text);
+
+        } else if (response.status !== 200) {
             throw new Error('Something went wrong when updating the user');
         }
 
@@ -67,7 +77,7 @@ export const updateUser = (oldUser, newUser) => async (dispatch) => {
     } catch (e) {
         //error - rollback the user in the state
         dispatch(replaceUser(oldUser));
-        alert(e);
+        dispatch(addNotification(e.toString(), "danger", ErrorIcon));
     }
 };
 
@@ -88,7 +98,7 @@ export const deleteUser = (user, page = 0, rowsPerPage = PaginatedEntityContaine
             throw new Error('Something went wrong when deleting the user');
         }
     } catch (e) {
-        alert(e);
+        addNotification(e, "danger", ErrorIcon);
     } finally {
         dispatch(fetchUsers(page, rowsPerPage));
     }
