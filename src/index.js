@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import "assets/scss/material-dashboard-react.scss";
 import store from "./store";
 import DashboardContainer from "./layouts/DashboardContainer";
+import WebSocket from "./services/WebSocket";
 
 const history = createBrowserHistory();
 
@@ -20,3 +21,6 @@ ReactDOM.render(
     </Provider>,
     document.getElementById("root")
 );
+
+const ws = new WebSocket("http://localhost:8081/mailer-websocket", store);
+ws.connect();

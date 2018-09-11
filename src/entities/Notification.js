@@ -1,8 +1,18 @@
 import InfoIcon from "@material-ui/icons/Info";
 import cryptoRandomString from 'crypto-random-string';
 
-export default class {
-    constructor(message, color = "info", icon = InfoIcon, place = "br") {
+/**
+ * UI notification
+ */
+class Notification {
+
+    /**
+     * The default notification placement
+     * @type {string}
+     */
+    static DEFAULT_PLACEMENT = "br";
+
+    constructor(message, color = "info", icon = InfoIcon, place = Notification.DEFAULT_PLACEMENT) {
         this.id = cryptoRandomString(10);
         this.message = message;
         this.color = color;
@@ -10,3 +20,5 @@ export default class {
         this.place = place;
     }
 }
+
+export default Notification;
