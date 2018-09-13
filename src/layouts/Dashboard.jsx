@@ -89,9 +89,7 @@ class App extends React.Component {
                 </div>
                 <div>
                     {notifications.map((notification, idx) => (
-                        <Snackbar place={notification.place} color={notification.color} icon={notification.icon}
-                                  message={notification.message} open={true} closeNotification={() => closeNotification(notification)} close
-                        />
+                        <Snackbar place={notification.place} color={notification.color} icon={notification.icon} message={notification.message} open={true} closeNotification={() => closeNotification(notification)} close key={idx}/>
                     ))}
 
                 </div>

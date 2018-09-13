@@ -38,29 +38,6 @@ class HeaderLinks extends React.Component {
         return (
             <div>
                 <Manager>
-                    <Reference>
-                        {({ref}) => (
-                            <Button
-                                ref={ref}
-                                color={window.innerWidth > 959 ? "transparent" : "white"}
-                                justIcon={window.innerWidth > 959}
-                                simple={!(window.innerWidth > 959)}
-                                aria-label="Notifications"
-                                aria-owns={open ? "menu-list" : null}
-                                aria-haspopup="true"
-                                onClick={this.handleClick}
-                                className={classes.buttonLink}
-                            >
-                                <Notifications className={classes.icons}/>
-                                <span className={classes.notifications}>5</span>
-                                <Hidden mdUp>
-                                    <p onClick={this.handleClick} className={classes.linkText}>
-                                        Notification
-                                    </p>
-                                </Hidden>
-                            </Button>
-                        )}
-                    </Reference>
                     <Popper
                         placement="bottom-end"
                         eventsEnabled={open}
