@@ -22,5 +22,5 @@ ReactDOM.render(
     document.getElementById("root")
 );
 
-const ws = new WebSocket("http://localhost:8081/mailer-websocket", store);
+const ws = new WebSocket("/ws", store);
 ws.connect();
