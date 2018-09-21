@@ -16,8 +16,8 @@ import dashboardRoutes from "routes/dashboard.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
-import image from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/reactlogo.png";
+import image from "assets/img/sidebar.jpg";
+import logo from "assets/img/logo.png";
 import Snackbar from "components/Snackbar/Snackbar.jsx";
 
 const switchRoutes = (
