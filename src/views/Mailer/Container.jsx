@@ -2,7 +2,7 @@ import Mailer from "./Presentation.jsx";
 import {connect} from "react-redux";
 import React from "react";
 import PropTypes from "prop-types";
-import {openViewEmailModal} from "../../actions/mailer/ui";
+import {toggleEmailDrawer} from "../../actions/mailer/ui";
 import {fetchEmails} from "../../actions/mailer/api";
 
 class Container extends React.Component {
@@ -23,14 +23,15 @@ class Container extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     const {emails} = state.entities;
 
-    return {emails};
+    const drawerOpen = state.ui.mailer.drawer.open;
+    const drawerEmail = state.ui.mailer.drawer.email;
+    const drawerAnchor = state.ui.mailer.drawer.anchor;
+
+    return {emails, drawerOpen, drawerEmail, drawerAnchor};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        handleOpenEmail: () => {
-            dispatch(openViewEmailModal());
-        },
         onRefresh: (size, page) => {
             dispatch(fetchEmails(page, size));
         },
@@ -40,6 +41,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         onChangeRowsPerPage: (size, page) => {
             dispatch(fetchEmails(page, size));
         },
+        toggleDrawer: (email) => dispatch(toggleEmailDrawer(email)),
         dispatch
     }
 };

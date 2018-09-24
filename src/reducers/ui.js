@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {TOGGLE_EDIT_USER_MODAL, TOGGLE_DELETE_USER_MODAL, TOGGLE_UREG_DRAWER} from "../actions/ureg/ui";
-import {TOGGLE_VIEW_EMAIL_MODAL} from "../actions/mailer/ui";
+import {TOGGLE_EMAIL_DRAWER, TOGGLE_VIEW_EMAIL_MODAL} from "../actions/mailer/ui";
 import {ADD_NOTIFICATION, REMOVE_NOTIFICATION} from "../actions/notifications";
 
 const editUser = (state = {}, action) => {
@@ -80,9 +80,25 @@ const uregDrawer = (state = {}, action) => {
     }
 };
 
+const emailDrawer = (state = {}, action) => {
+    switch (action.type) {
+        case TOGGLE_EMAIL_DRAWER:
+            const open = !state.open;
+
+            return {
+                ...state,
+                open: open,
+                email: open ? action.email : {}
+            };
+
+        default:
+            return state;
+    }
+};
+
 const ureg = combineReducers({modals: combineReducers({editUser, deleteUser}), drawer: uregDrawer});
 
-const mailer = combineReducers({modals: combineReducers({viewEmail})});
+const mailer = combineReducers({modals: combineReducers({viewEmail}), drawer: emailDrawer});
 
 const ui = combineReducers({ureg, mailer, notifications});
 

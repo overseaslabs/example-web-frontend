@@ -16,6 +16,15 @@ import Table from "@material-ui/core/Table";
 import Refresh from "@material-ui/icons/Refresh";
 
 import TablePagination from "@material-ui/core/TablePagination"
+import List from "@material-ui/core/List/List";
+import ListItem from "@material-ui/core/ListItem/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
+import EmailIcon from "@material-ui/icons/Email";
+import InfoIcon from "@material-ui/icons/Info";
+import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import Divider from "@material-ui/core/Divider/Divider";
+import Drawer from "@material-ui/core/Drawer/Drawer";
+import IconButton from "@material-ui/core/IconButton/IconButton";
 
 
 const styles = {
@@ -52,20 +61,49 @@ class Presentation extends React.Component {
     classes = this.props.classes;
 
     static propTypes = {
-        handleOpenEmail: PropTypes.func.isRequired,
         handleChangePage: PropTypes.func.isRequired,
         onChangeRowsPerPage: PropTypes.func.isRequired,
         onRefresh: PropTypes.func.isRequired,
         emails: PropTypes.object.isRequired,
-        classes: PropTypes.object.isRequired
+        classes: PropTypes.object.isRequired,
+        drawerOpen: PropTypes.bool.isRequired,
+        drawerEmail: PropTypes.object.isRequired,
+        toggleDrawer: PropTypes.func.isRequired,
+        drawerAnchor: PropTypes.string.isRequired,
     };
 
     render() {
-        const {classes, emails, handleOpenEmail, handleChangePage, onChangeRowsPerPage, onRefresh} = this.props;
+        const {classes, emails, handleChangePage, onChangeRowsPerPage, onRefresh, drawerOpen, drawerEmail, toggleDrawer, drawerAnchor} = this.props;
 
-        const header = ['Date', 'Recipient', 'Email'];
+        const header = ['Date', 'Recipient', 'Email', 'Actions'];
 
         return <Grid container>
+            <Drawer open={drawerOpen} anchor={drawerAnchor} ModalProps={{onBackdropClick: toggleDrawer, onEscapeKeyDown: toggleDrawer}}>
+                <List component="nav">
+                    <ListItem>
+                        <ListItemIcon>
+                            <EmailIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Email Info"/>
+                    </ListItem>
+                </List>
+                <Divider/>
+                <List component="nav">
+                    <ListItem>
+                        <ListItemText primary={`To ${drawerEmail.recipient || ""} <${drawerEmail.email || ""}>`}/>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={"Sent " + drawerEmail.created || ""}/>
+                    </ListItem>
+                    <Divider/>
+                    <ListItem>
+                        <ListItemText>
+                            <pre>{drawerEmail.content}</pre>
+                        </ListItemText>
+                    </ListItem>
+                </List>
+            </Drawer>
+
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
@@ -90,6 +128,11 @@ class Presentation extends React.Component {
                                                 <TableCell className={classes.tableCell}>{email.created}</TableCell>
                                                 <TableCell className={classes.tableCell}>{email.recipient}</TableCell>
                                                 <TableCell className={classes.tableCell}>{email.email}</TableCell>
+                                                <TableCell>
+                                                    <IconButton className={classes.button} onClick={() => toggleDrawer(email)}>
+                                                        <InfoIcon/>
+                                                    </IconButton>
+                                                </TableCell>
                                             </TableRow>
                                         );
                                     })}

@@ -35,7 +35,6 @@ const state = {
                     user: {}
                 }
             },
-            //view user drawer
             drawer: {
                 open: false,
                 user: {},
@@ -48,6 +47,11 @@ const state = {
                     open: false,
                     email: {}
                 }
+            },
+            drawer: {
+                open: false,
+                email: {},
+                anchor: 'right'
             }
         },
         notifications: []
