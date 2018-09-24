@@ -6,8 +6,9 @@ import {
     openEditUserModal,
     openDeleteUserModal,
     closeDeleteUserModal
-} from "../../actions/ureg/modals";
+} from "../../actions/ureg/ui";
 import PropTypes from "prop-types";
+import {toggleUregDrawer} from "../../actions/ureg/ui";
 
 class Container extends React.Component {
     static propTypes = {
@@ -29,7 +30,11 @@ class Container extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     const {users} = state.entities;
 
-    return {users};
+    const drawerOpen = state.ui.ureg.drawer.open;
+    const drawerUser = state.ui.ureg.drawer.user;
+    const drawerAnchor = state.ui.ureg.drawer.anchor;
+
+    return {users, drawerOpen, drawerUser, drawerAnchor};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -49,6 +54,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         onChangeRowsPerPage: (size, page) => {
             dispatch(fetchUsers(page, size));
         },
+        toggleDrawer: (user) => dispatch(toggleUregDrawer(user)),
         dispatch
     }
 };

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {reduxForm} from 'redux-form'
 import {createUser, updateUser} from "../../../actions/ureg/api";
 import cryptoRandomString from 'crypto-random-string';
-import {closeEditUserModal} from "../../../actions/ureg/modals";
+import {closeEditUserModal} from "../../../actions/ureg/ui";
 import {EDIT_USER_FORM} from "./Presentation";
 
 

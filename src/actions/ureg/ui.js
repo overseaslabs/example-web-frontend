@@ -2,6 +2,7 @@ import {resetActiveUser, setActiveUser} from "./forms";
 
 export const TOGGLE_EDIT_USER_MODAL = 'TOGGLE_EDIT_USER_MODAL';
 export const TOGGLE_DELETE_USER_MODAL = 'TOGGLE_DELETE_USER_MODAL';
+export const TOGGLE_UREG_DRAWER = 'TOGGLE_UREG_DRAWER';
 
 export const openDeleteUserModal = (user) => ({
     type: TOGGLE_DELETE_USER_MODAL,
@@ -34,3 +35,13 @@ export const openEditUserModal = (user = null) => dispatch => {
 
     dispatch(switchEditUserModal(true));
 };
+
+/**
+ * Open or close the user registry drawer
+ * @param user
+ * @returns {{type: string, open: boolean}}
+ */
+export const toggleUregDrawer = (user) => ({
+    type: TOGGLE_UREG_DRAWER,
+    user
+});

@@ -34,7 +34,7 @@ export const createUser = (user, page = 0, rowsPerPage = PaginatedEntityContaine
             const text = await response.text();
             throw new Error(text);
 
-        } else if (response.status !== 200) {
+        } else if (response.status !== 201) {
             throw new Error('Something went wrong when creating the user');
 
         } else {

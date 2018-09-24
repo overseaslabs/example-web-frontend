@@ -1,5 +1,5 @@
 import connect from "react-redux/es/connect/connect";
-import {closeDeleteUserModal} from "../../../actions/ureg/modals";
+import {closeDeleteUserModal} from "../../../actions/ureg/ui";
 import {deleteUser, fetchUsers} from "../../../actions/ureg/api";
 import Presentation from "./Presentation.jsx";
 

@@ -17,9 +17,16 @@ import Table from "@material-ui/core/Table";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import InfoIcon from "@material-ui/icons/Info";
+import PersonIcon from "@material-ui/icons/Person";
 import DeleteUserModal from "./DeleteUserModal/Container.jsx";
-import TableFooter from "@material-ui/core/TableFooter"
 import TablePagination from "@material-ui/core/TablePagination"
+import Drawer from "@material-ui/core/Drawer"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import ListItemText from "@material-ui/core/ListItemText"
+import Divider from "@material-ui/core/Divider"
 
 
 const styles = {
@@ -62,17 +69,42 @@ class Presentation extends React.Component {
         handleChangePage: PropTypes.func.isRequired,
         onChangeRowsPerPage: PropTypes.func.isRequired,
         users: PropTypes.object.isRequired,
-        classes: PropTypes.object.isRequired
+        classes: PropTypes.object.isRequired,
+        drawerOpen: PropTypes.bool.isRequired,
+        drawerUser: PropTypes.object.isRequired,
+        toggleDrawer: PropTypes.func.isRequired,
     };
 
     render() {
-        const {classes, users, handleAddUser, handleEditUser, handleDeleteUser, handleChangePage, onChangeRowsPerPage} = this.props;
+        const {classes, users, handleAddUser, handleEditUser, handleDeleteUser, handleChangePage, onChangeRowsPerPage, drawerOpen, drawerUser, toggleDrawer, drawerAnchor} = this.props;
 
         const header = ['Name', 'Email', 'Since', 'Actions'];
 
         return <Grid container>
             <DeleteUserModal/>
             <EditUserModal/>
+            <Drawer open={drawerOpen} anchor={drawerAnchor} ModalProps={{onBackdropClick: toggleDrawer, onEscapeKeyDown: toggleDrawer}}>
+                <List component="nav">
+                    <ListItem>
+                        <ListItemIcon>
+                            <PersonIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="User Info"/>
+                    </ListItem>
+                </List>
+                <Divider/>
+                <List component="nav">
+                    <ListItem>
+                        <ListItemText primary={(drawerUser.firstName || "") + " " + (drawerUser.lastName || "")}/>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={drawerUser.email || ""}/>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={"Since " + drawerUser.created || ""}/>
+                    </ListItem>
+                </List>
+            </Drawer>
 
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -99,6 +131,9 @@ class Presentation extends React.Component {
                                                 <TableCell className={classes.tableCell}>{user.email}</TableCell>
                                                 <TableCell className={classes.tableCell}>{user.created}</TableCell>
                                                 <TableCell className={classes.tableCell}>
+                                                    <IconButton className={classes.button} onClick={() => toggleDrawer(user)}>
+                                                        <InfoIcon/>
+                                                    </IconButton>
                                                     <IconButton className={classes.button} onClick={() => handleEditUser(user)}>
                                                         <EditIcon/>
                                                     </IconButton>

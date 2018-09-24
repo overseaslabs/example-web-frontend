@@ -2,7 +2,7 @@ import Mailer from "./Presentation.jsx";
 import {connect} from "react-redux";
 import React from "react";
 import PropTypes from "prop-types";
-import {openViewEmailModal} from "../../actions/mailer/modals";
+import {openViewEmailModal} from "../../actions/mailer/ui";
 import {fetchEmails} from "../../actions/mailer/api";
 
 class Container extends React.Component {

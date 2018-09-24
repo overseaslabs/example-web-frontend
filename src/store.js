@@ -34,6 +34,12 @@ const state = {
                     open: false,
                     user: {}
                 }
+            },
+            //view user drawer
+            drawer: {
+                open: false,
+                user: {},
+                anchor: 'right'
             }
         },
         mailer: {
