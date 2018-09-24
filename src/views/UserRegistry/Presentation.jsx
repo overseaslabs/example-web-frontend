@@ -73,6 +73,7 @@ class Presentation extends React.Component {
         drawerOpen: PropTypes.bool.isRequired,
         drawerUser: PropTypes.object.isRequired,
         toggleDrawer: PropTypes.func.isRequired,
+        drawerAnchor: PropTypes.string.isRequired,
     };
 
     render() {
