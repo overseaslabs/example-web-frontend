@@ -2,8 +2,9 @@ import Mailer from "./Presentation.jsx";
 import {connect} from "react-redux";
 import React from "react";
 import PropTypes from "prop-types";
-import {toggleEmailDrawer} from "../../actions/mailer/ui";
+import {sortEmails, toggleEmailDrawer} from "../../actions/mailer/ui";
 import {fetchEmails} from "../../actions/mailer/api";
+import SortingHelper from "../../services/SortingHelper";
 
 class Container extends React.Component {
     static propTypes = {
@@ -16,7 +17,10 @@ class Container extends React.Component {
     };
 
     render() {
-        return <Mailer {...this.props}/>
+        let {emails, order, orderBy} = this.props;
+        emails.content = SortingHelper.stableSort(emails.content, SortingHelper.getSorting(order, orderBy));
+
+        return <Mailer emails={emails} order={order} orderBy={orderBy} {...this.props}/>
     }
 }
 
@@ -27,7 +31,9 @@ const mapStateToProps = (state, ownProps) => {
     const drawerEmail = state.ui.mailer.drawer.email;
     const drawerAnchor = state.ui.mailer.drawer.anchor;
 
-    return {emails, drawerOpen, drawerEmail, drawerAnchor};
+    const {order, orderBy} = state.ui.mailer.emails;
+
+    return {emails, drawerOpen, drawerEmail, drawerAnchor, order, orderBy};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -42,6 +48,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(fetchEmails(page, size));
         },
         toggleDrawer: (email) => dispatch(toggleEmailDrawer(email)),
+        handleSort: (rowId) => dispatch(sortEmails(rowId)),
         dispatch
     }
 };
@@ -52,7 +59,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     ...dispatchProps,
     onChangeRowsPerPage: (event) => dispatchProps.onChangeRowsPerPage(event.target.value, stateProps.emails.number),
     handleChangePage: (event, page) => dispatchProps.handleChangePage(stateProps.emails.size, page),
-    onRefresh:() => dispatchProps.onRefresh(stateProps.emails.size, stateProps.emails.number),
+    onRefresh: () => dispatchProps.onRefresh(stateProps.emails.size, stateProps.emails.number),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Container);

@@ -39,6 +39,11 @@ const state = {
                 open: false,
                 user: {},
                 anchor: 'right'
+            },
+            //user list sorting
+            users: {
+                order: 'asc',
+                orderBy: null
             }
         },
         mailer: {
@@ -52,6 +57,11 @@ const state = {
                 open: false,
                 email: {},
                 anchor: 'right'
+            },
+            //email list sorting
+            emails: {
+                order: 'asc',
+                orderBy: null
             }
         },
         notifications: []

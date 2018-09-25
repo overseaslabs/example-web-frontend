@@ -1,14 +1,15 @@
 import Marketing from "./Presentation.jsx";
 import {connect} from "react-redux";
 import React from "react";
-import {deleteUser, fetchUsers} from "../../actions/ureg/api";
+import {fetchUsers} from "../../actions/ureg/api";
 import {
     openEditUserModal,
     openDeleteUserModal,
-    closeDeleteUserModal
+    sortUsers
 } from "../../actions/ureg/ui";
 import PropTypes from "prop-types";
 import {toggleUregDrawer} from "../../actions/ureg/ui";
+import SortingHelper from "../../services/SortingHelper";
 
 class Container extends React.Component {
     static propTypes = {
@@ -23,7 +24,10 @@ class Container extends React.Component {
     };
 
     render() {
-        return <Marketing {...this.props}/>
+        let {users, order, orderBy} = this.props;
+        users.content = SortingHelper.stableSort(users.content, SortingHelper.getSorting(order, orderBy));
+
+        return <Marketing users={users} order={order} orderBy={orderBy} {...this.props}/>
     }
 }
 
@@ -34,7 +38,9 @@ const mapStateToProps = (state, ownProps) => {
     const drawerUser = state.ui.ureg.drawer.user;
     const drawerAnchor = state.ui.ureg.drawer.anchor;
 
-    return {users, drawerOpen, drawerUser, drawerAnchor};
+    const {order, orderBy} = state.ui.ureg.users;
+
+    return {users, drawerOpen, drawerUser, drawerAnchor, order, orderBy};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -55,6 +61,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(fetchUsers(page, size));
         },
         toggleDrawer: (user) => dispatch(toggleUregDrawer(user)),
+        handleSort: (rowId) => dispatch(sortUsers(rowId)),
         dispatch
     }
 };

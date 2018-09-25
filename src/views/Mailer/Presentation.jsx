@@ -25,6 +25,8 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import Divider from "@material-ui/core/Divider/Divider";
 import Drawer from "@material-ui/core/Drawer/Drawer";
 import IconButton from "@material-ui/core/IconButton/IconButton";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 const styles = {
@@ -70,12 +72,24 @@ class Presentation extends React.Component {
         drawerEmail: PropTypes.object.isRequired,
         toggleDrawer: PropTypes.func.isRequired,
         drawerAnchor: PropTypes.string.isRequired,
+        handleSort: PropTypes.func.isRequired,
+        order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+        orderBy: PropTypes.string,
     };
 
     render() {
-        const {classes, emails, handleChangePage, onChangeRowsPerPage, onRefresh, drawerOpen, drawerEmail, toggleDrawer, drawerAnchor} = this.props;
+        const {
+            classes, emails, handleChangePage, onChangeRowsPerPage, onRefresh,
+            drawerOpen, drawerEmail, toggleDrawer, drawerAnchor, handleSort,
+            order, orderBy
+        } = this.props;
 
-        const header = ['Date', 'Recipient', 'Email', 'Actions'];
+        const header = [
+            ['Date', 'created'],
+            ['Recipient', 'recipient'],
+            ['Email', 'email'],
+            ['Actions', null]
+        ];
 
         return <Grid container>
             <Drawer open={drawerOpen} anchor={drawerAnchor} ModalProps={{onBackdropClick: toggleDrawer, onEscapeKeyDown: toggleDrawer}}>
@@ -117,7 +131,16 @@ class Presentation extends React.Component {
                                 <TableHead className={classes["primaryTableHeader"]}>
                                     <TableRow>
                                         {header.map((title, key) => {
-                                            return <TableCell className={classes.tableCell + " " + classes.tableHeadCell} key={key}>{title}</TableCell>
+                                            return title[1] !== null ? (
+                                                <TableCell className={classes.tableCell + " " + classes.tableHeadCell} key={key} sortDirection={orderBy === title[1] ? order : false}>
+                                                    <Tooltip title="Sort" enterDelay={300}>
+                                                        <TableSortLabel active={orderBy === title[1]} direction={order} onClick={() => handleSort(title[1])}>{title[0]}</TableSortLabel>
+                                                    </Tooltip>
+                                                </TableCell>
+                                            ) : (
+                                                <TableCell className={classes.tableCell + " " + classes.tableHeadCell} key={key}>{title[0]}</TableCell>
+                                            )
+
                                         })}
                                     </TableRow>
                                 </TableHead>

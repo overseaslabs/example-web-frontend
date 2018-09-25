@@ -3,6 +3,7 @@ import {resetActiveUser, setActiveUser} from "./forms";
 export const TOGGLE_EDIT_USER_MODAL = 'TOGGLE_EDIT_USER_MODAL';
 export const TOGGLE_DELETE_USER_MODAL = 'TOGGLE_DELETE_USER_MODAL';
 export const TOGGLE_UREG_DRAWER = 'TOGGLE_UREG_DRAWER';
+export const SORT_USERS = "SORT_USERS";
 
 export const openDeleteUserModal = (user) => ({
     type: TOGGLE_DELETE_USER_MODAL,
@@ -44,4 +45,13 @@ export const openEditUserModal = (user = null) => dispatch => {
 export const toggleUregDrawer = (user) => ({
     type: TOGGLE_UREG_DRAWER,
     user
+});
+
+/**
+ * Sort the users list
+ * @returns {{type: string}}
+ */
+export const sortUsers = (orderBy) => ({
+    type: SORT_USERS,
+    orderBy
 });
