@@ -1,6 +1,10 @@
+/*
+ * Delete user modal container
+ */
+
 import connect from "react-redux/es/connect/connect";
 import {closeDeleteUserModal} from "../../../actions/ureg/ui";
-import {deleteUser, fetchUsers} from "../../../actions/ureg/api";
+import {deleteUser} from "../../../actions/ureg/api";
 import Presentation from "./Presentation.jsx";
 
 const mapStateToProps = state => {
@@ -12,9 +16,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    //close the modal
     handleClose: () => {
         dispatch(closeDeleteUserModal());
     },
+    //confirm deletion
     handleSubmit: (user, page, size) => {
         dispatch(closeDeleteUserModal());
         dispatch(deleteUser(user));

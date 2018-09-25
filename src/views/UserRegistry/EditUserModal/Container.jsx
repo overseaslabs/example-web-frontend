@@ -1,3 +1,7 @@
+/*
+ * Edit user modal container
+ */
+
 import {connect} from "react-redux";
 import Presentation from "./Presentation.jsx";
 import React from "react";
@@ -22,11 +26,17 @@ ModalContainer.propTypes = {
     user: PropTypes.object.isRequired
 };
 
+/**
+ * Validation handler for redux form
+ * Makes sure the
+ * @param values
+ */
 const validate = values => {
     const errors = {};
     const requiredFields = [
-        'name',
-        'description'
+        'firstName',
+        'lastName',
+        'email'
     ];
 
     requiredFields.forEach(field => {
@@ -40,9 +50,11 @@ const validate = values => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        //close the modal
         handleClose: () => {
             dispatch(closeEditUserModal());
         },
+        //submit the form
         onSubmit: (newUser, oldUser = false, page, size) => {
             dispatch(closeEditUserModal());
 

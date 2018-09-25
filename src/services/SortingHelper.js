@@ -1,3 +1,6 @@
+/**
+ * Provides sorting functionality
+ */
 class SortingHelper {
     static desc(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {

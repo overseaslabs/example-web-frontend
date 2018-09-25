@@ -1,3 +1,7 @@
+/*
+ * User registry container
+ */
+
 import Marketing from "./Presentation.jsx";
 import {connect} from "react-redux";
 import React from "react";
@@ -19,11 +23,13 @@ class Container extends React.Component {
     };
 
     componentDidMount() {
+        //fetch users
         const {dispatch} = this.props;
         dispatch(fetchUsers());
     };
 
     render() {
+        //sort the users list
         let {users, order, orderBy} = this.props;
         users.content = SortingHelper.stableSort(users.content, SortingHelper.getSorting(order, orderBy));
 
@@ -32,12 +38,15 @@ class Container extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+    //users
     const {users} = state.entities;
 
+    //drawer state
     const drawerOpen = state.ui.ureg.drawer.open;
     const drawerUser = state.ui.ureg.drawer.user;
     const drawerAnchor = state.ui.ureg.drawer.anchor;
 
+    //sorting state
     const {order, orderBy} = state.ui.ureg.users;
 
     return {users, drawerOpen, drawerUser, drawerAnchor, order, orderBy};
@@ -45,22 +54,28 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        //open the add user modal
         handleAddUser: () => {
             dispatch(openEditUserModal());
         },
+        //open the add user modal in the edit mode
         handleEditUser: (user) => {
             dispatch(openEditUserModal(user));
         },
+        //open a confirmation delete user modal
         handleDeleteUser: (user) => {
             dispatch(openDeleteUserModal(user));
         },
+        //pagination handling
         handleChangePage: (size, page) => {
             dispatch(fetchUsers(page, size));
         },
         onChangeRowsPerPage: (size, page) => {
             dispatch(fetchUsers(page, size));
         },
+        //open/close the drawer
         toggleDrawer: (user) => dispatch(toggleUregDrawer(user)),
+        //change the sorting
         handleSort: (rowId) => dispatch(sortUsers(rowId)),
         dispatch
     }

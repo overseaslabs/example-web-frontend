@@ -1,5 +1,5 @@
 /*
-UI Notifications
+ * UI Notifications
  */
 
 import InfoIcon from "@material-ui/icons/Info";

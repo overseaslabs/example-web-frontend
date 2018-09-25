@@ -1,3 +1,7 @@
+/*
+ * Email UI actions
+ */
+
 export const TOGGLE_EMAIL_DRAWER = 'TOGGLE_EMAIL_DRAWER';
 export const SORT_EMAILS = "SORT_EMAILS";
 

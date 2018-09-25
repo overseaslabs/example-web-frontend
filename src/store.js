@@ -1,7 +1,14 @@
+/*
+ * The state
+ */
+
 import {createStore} from "redux";
 import reducers from "./reducers/index";
 import middleware from "./middleware";
 
+/**
+ * Spring page
+ */
 export class PaginatedEntityContainer {
     /**
      * Default pagination size
@@ -25,7 +32,9 @@ const state = {
         emails: new PaginatedEntityContainer(),
     },
     ui: {
+        //user registry page
         ureg: {
+            //modal windows
             modals: {
                 editUser: {
                     open: false
@@ -35,6 +44,7 @@ const state = {
                     user: {}
                 }
             },
+            //side panel with user info
             drawer: {
                 open: false,
                 user: {},
@@ -46,6 +56,7 @@ const state = {
                 orderBy: null
             }
         },
+        //mailer page
         mailer: {
             modals: {
                 viewEmail: {
@@ -64,6 +75,7 @@ const state = {
                 orderBy: null
             }
         },
+        //UI-wide notifications
         notifications: []
     }
 };

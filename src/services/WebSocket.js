@@ -44,6 +44,8 @@ class WebSocket {
             this.connected = true;
 
             this.stompClient.subscribe('/topic/mailer', (msg) => {
+                //new message from the mailer
+                //show a notification
                 const response = JSON.parse(msg.body);
                 const success = response.success || false;
 

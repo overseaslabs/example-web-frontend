@@ -1,3 +1,8 @@
+/*
+ * Dashboard container
+ */
+
+
 import connect from "react-redux/es/connect/connect";
 import {removeNotification} from "../actions/notifications";
 import Dashboard from "./Dashboard";
@@ -7,6 +12,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    //closes a notification
     closeNotification: (notification) => {
         dispatch(removeNotification(notification));
     },

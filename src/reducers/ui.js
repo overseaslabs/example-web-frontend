@@ -1,6 +1,10 @@
+/*
+ * UI reducers
+ */
+
 import {combineReducers} from 'redux';
 import {TOGGLE_EDIT_USER_MODAL, TOGGLE_DELETE_USER_MODAL, TOGGLE_UREG_DRAWER, SORT_USERS} from "../actions/ureg/ui";
-import {SORT_EMAILS, TOGGLE_EMAIL_DRAWER, TOGGLE_VIEW_EMAIL_MODAL} from "../actions/mailer/ui";
+import {SORT_EMAILS, TOGGLE_EMAIL_DRAWER} from "../actions/mailer/ui";
 import {ADD_NOTIFICATION, REMOVE_NOTIFICATION} from "../actions/notifications";
 
 /**
@@ -50,7 +54,7 @@ const deleteUser = (state = {}, action) => {
 
 const viewEmail = (state = {}, action) => {
     switch (action.type) {
-        case TOGGLE_VIEW_EMAIL_MODAL:
+        case TOGGLE_EMAIL_DRAWER:
             return {
                 ...state,
                 open: action.open,

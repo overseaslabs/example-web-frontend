@@ -1,3 +1,7 @@
+/*
+ * Edit user modal presentation
+ */
+
 import PropTypes from "prop-types";
 import React from "react";
 import Button from '@material-ui/core/Button';
@@ -47,9 +51,9 @@ class Presentation extends React.Component {
                         Please fill out the user details
                     </DialogContentText>
 
-                    <Field autoFocus margin="dense" id="firstName" label="firstName" fullWidth required={true} name="firstName" component={TextField}/>
-                    <Field autoFocus margin="dense" id="lastName" label="lastName" fullWidth required={true} name="lastName" component={TextField}/>
-                    <Field autoFocus margin="dense" id="email" label="email" fullWidth required={true} name="email" component={TextField}/>
+                    <Field autoFocus margin="dense" id="firstName" label="First Name" fullWidth required={true} name="firstName" component={TextField}/>
+                    <Field autoFocus margin="dense" id="lastName" label="Last Name" fullWidth required={true} name="lastName" component={TextField}/>
+                    <Field autoFocus margin="dense" id="email" label="Email" fullWidth required={true} name="email" component={TextField}/>
 
                 </DialogContent>
 

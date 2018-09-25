@@ -1,10 +1,19 @@
+/*
+ * User registry actions
+ */
+
 import {replaceUser, removeUser, addUser, insertUsers} from "./list";
 import {PaginatedEntityContainer} from "../../store";
 import CircularJSON from 'circular-json';
 import {addNotification} from "../notifications";
 import ErrorIcon from "@material-ui/icons/Error";
 
-
+/**
+ * Fetch users
+ * @param page
+ * @param rowsPerPage
+ * @returns {Function}
+ */
 export const fetchUsers = (page = 0, rowsPerPage = PaginatedEntityContainer.ROWS_PER_PAGE) => async dispatch => {
     const response = await fetch(`/ureg/users?page=${page}&size=${rowsPerPage}`);
 
@@ -17,6 +26,13 @@ export const fetchUsers = (page = 0, rowsPerPage = PaginatedEntityContainer.ROWS
     dispatch(insertUsers(users));
 };
 
+/**
+ * Create a new user
+ * @param user
+ * @param page
+ * @param rowsPerPage
+ * @returns {Function}
+ */
 export const createUser = (user, page = 0, rowsPerPage = PaginatedEntityContainer.ROWS_PER_PAGE) => async dispatch => {
     dispatch(addUser(user));
 
@@ -53,6 +69,12 @@ export const createUser = (user, page = 0, rowsPerPage = PaginatedEntityContaine
     }
 };
 
+/**
+ * Update the user
+ * @param oldUser
+ * @param newUser
+ * @returns {Function}
+ */
 export const updateUser = (oldUser, newUser) => async (dispatch) => {
     //update the state with the new user
     dispatch(replaceUser(newUser));
@@ -81,6 +103,13 @@ export const updateUser = (oldUser, newUser) => async (dispatch) => {
     }
 };
 
+/**
+ * Delete the user
+ * @param user
+ * @param page
+ * @param rowsPerPage
+ * @returns {Function}
+ */
 export const deleteUser = (user, page = 0, rowsPerPage = PaginatedEntityContainer.ROWS_PER_PAGE) => async dispatch => {
     //Remove the user from the list
     dispatch(removeUser(user));

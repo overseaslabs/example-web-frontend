@@ -1,3 +1,7 @@
+/*
+ * Form reducers
+ */
+
 import {reducer} from 'redux-form';
 import {SET_EDITED_USER, RESET_EDITED_USER} from "../actions/ureg/forms";
 import {EDIT_USER_FORM} from "../views/UserRegistry/EditUserModal/Presentation";

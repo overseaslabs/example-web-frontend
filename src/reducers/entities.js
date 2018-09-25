@@ -1,3 +1,7 @@
+/*
+ * Entity reducers
+ */
+
 import {combineReducers} from 'redux';
 import {INSERT_USERS} from "../actions/ureg/list";
 import {REMOVE_USER, REPLACE_USER, ADD_USER} from "../actions/ureg/list";
