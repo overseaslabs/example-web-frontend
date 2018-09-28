@@ -92,7 +92,7 @@ class Presentation extends React.Component {
                         Spring projects family
                     </Typography>
                     <div>
-                        <Chip label="Spring Framework"/> <Chip label="Spring Boot"/> <Chip label="Spring Boot Data"/>
+                        <Chip label="Spring Framework"/> <Chip label="Spring Boot"/> <Chip label="Spring Data"/>
                     </div>
                     <br/>
 
@@ -161,7 +161,7 @@ class Presentation extends React.Component {
                         <li>Go to the the User Registry tab and add a new user. Disposable email service such as <a href="https://temp-mail.org/" target="_blank">https://temp-mail.org/</a> can be used for testing purposes.</li>
                         <li>Receive a success notification in the UI saying "An email has been successfully sent". The notification has been received from the Mailer microservice via WebSocket</li>
                         <li>Receive a welcome email sent by the app through sendgrid</li>
-                        <li>View the user info hitting the information icon on the user list, edit and delete user clicking the appropriate icons</li>
+                        <li>View the user info hitting the information icon on the user list, edit and delete the user clicking the appropriate icons</li>
                         <li>Go to the Mailer tab and look up the welcome email that has been sent by the app</li>
                         <li>View the email info hitting the information icon on the list</li>
                         <li>Check the source code on GitHub. The links can be found on <a href="#" onClick={() => this.handleChange(null, 1)}> the source code tab</a></li>

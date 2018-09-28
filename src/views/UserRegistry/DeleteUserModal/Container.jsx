@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     //confirm deletion
     handleSubmit: (user, page, size) => {
         dispatch(closeDeleteUserModal());
-        dispatch(deleteUser(user));
+        dispatch(deleteUser(user, page, size));
     },
     dispatch
 });

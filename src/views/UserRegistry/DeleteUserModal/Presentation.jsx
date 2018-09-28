@@ -27,7 +27,7 @@ class Presentation extends React.Component {
                 <DialogTitle id="alert-dialog-title">{`User deletion`}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        You're about to delete {user.name}. Confirm?
+                        You're about to delete {user.firstName + " " + user.lastName}. Confirm?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
